@@ -21,6 +21,8 @@ namespace PhpOffice\PhpWord\Writer\ODText\Part;
 use PhpOffice\PhpWord\Element\AbstractContainer;
 use PhpOffice\PhpWord\Element\Field;
 use PhpOffice\PhpWord\Element\Image;
+use PhpOffice\PhpWord\Element\Row;
+use PhpOffice\PhpWord\Element\Cell;
 use PhpOffice\PhpWord\Element\Table;
 use PhpOffice\PhpWord\Element\Text;
 use PhpOffice\PhpWord\Element\TextRun;
@@ -48,7 +50,7 @@ class Content extends AbstractPart
      *
      * @var array
      */
-    private $autoStyles = ['Section' => [], 'Image' => [], 'Table' => []];
+    private $autoStyles = ['Section' => [], 'Image' => [], 'Table' => [], 'Row' => [], 'Cell' => []];
 
     private $imageParagraphStyles = [];
 
@@ -295,6 +297,21 @@ class Content extends AbstractPart
                 $style->setStyleName($element->getElementId());
                 $style->setColumnWidths($element->findFirstDefinedCellWidths());
                 $this->autoStyles['Table'][] = $style;
+                $this->getContainerStyle($element, $paragraphStyleCount, $fontStyleCount);
+            } elseif ($element instanceof Row) {
+                $style = $element->getStyle();
+                if ($style && !is_string($style)) {
+                    $style->setStyleName($element->getElementId());
+                    $this->autoStyles['Row'][] = $style;
+                }
+                $this->getContainerStyle($element, $paragraphStyleCount, $fontStyleCount);
+            } elseif ($element instanceof Cell) {
+                $style = $element->getStyle();
+                if ($style && !is_string($style)) {
+                    $style->setStyleName($element->getElementId());
+                    $this->autoStyles['Cell'][] = $style;
+                }
+                $this->getContainerStyle($element, $paragraphStyleCount, $fontStyleCount);
             }
         }
     }

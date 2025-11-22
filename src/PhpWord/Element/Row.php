@@ -25,7 +25,7 @@ use PhpOffice\PhpWord\Style\Row as RowStyle;
  *
  * @since 0.8.0
  */
-class Row extends AbstractElement
+class Row extends AbstractContainer
 {
     /**
      * Row height.
@@ -70,8 +70,7 @@ class Row extends AbstractElement
      */
     public function addCell($width = null, $style = null)
     {
-        $cell = new Cell($width, $style);
-        $cell->setParentContainer($this);
+        $cell = $this->addElement('Cell', $width, $style);
         $this->cells[] = $cell;
 
         return $cell;

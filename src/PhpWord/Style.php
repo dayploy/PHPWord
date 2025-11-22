@@ -19,9 +19,11 @@
 namespace PhpOffice\PhpWord;
 
 use PhpOffice\PhpWord\Style\AbstractStyle;
+use PhpOffice\PhpWord\Style\Cell;
 use PhpOffice\PhpWord\Style\Font;
 use PhpOffice\PhpWord\Style\Numbering;
 use PhpOffice\PhpWord\Style\Paragraph;
+use PhpOffice\PhpWord\Style\Row;
 use PhpOffice\PhpWord\Style\Table;
 
 /**
@@ -123,6 +125,38 @@ class Style
     public static function addTableStyle($styleName, $styleTable, $styleFirstRow = null)
     {
         return self::setStyleValues($styleName, new Table($styleTable, $styleFirstRow), null);
+    }
+
+    /**
+     * Add row style.
+     *
+     * @param string $styleName
+     * @param array $styleRow
+     *
+     * @return Row
+     */
+    public static function addRowStyle($styleName, $styleRow)
+    {
+        $rowStyle = new Cell();
+        $rowStyle->setAuto(true);
+
+        return self::setStyleValues($styleName, $rowStyle, $styleRow);
+    }
+
+    /**
+     * Add cell style.
+     *
+     * @param string $styleName
+     * @param array $styleCell
+     *
+     * @return Cell
+     */
+    public static function addCellStyle($styleName, $styleCell)
+    {
+        $cellStyle = new Cell();
+        $cellStyle->setAuto(true);
+
+        return self::setStyleValues($styleName, $cellStyle, $styleCell);
     }
 
     /**

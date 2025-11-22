@@ -41,6 +41,8 @@ use PhpOffice\PhpWord\Exception\Exception;
  * @method Style\Font addLinkStyle(string $styleName, mixed $styles)
  * @method Style\Font addTitleStyle(mixed $depth, mixed $fontStyle, mixed $paragraphStyle = null)
  * @method Style\Table addTableStyle(string $styleName, mixed $styleTable, mixed $styleFirstRow = null)
+ * @method Style\Row addRowStyle(string $styleName, mixed $styleRow)
+ * @method Style\Cell addCellStyle(string $styleName, mixed $styleCell)
  * @method Style\Numbering addNumberingStyle(string $styleName, mixed $styles)
  */
 class PhpWord
@@ -119,7 +121,7 @@ class PhpWord
             $addCollection[] = strtolower("add{$collection}");
         }
 
-        $styles = ['Paragraph', 'Font', 'Table', 'Numbering', 'Link', 'Title'];
+        $styles = ['Paragraph', 'Font', 'Table', 'Row', 'Cell', 'Numbering', 'Link', 'Title'];
         foreach ($styles as $style) {
             $addStyle[] = strtolower("add{$style}Style");
         }

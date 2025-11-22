@@ -47,6 +47,11 @@ class Row extends AbstractStyle
     private $exactHeight = false;
 
     /**
+     * @var null|string
+     */
+    private $bgColor;
+
+    /**
      * Create a new row style.
      */
     public function __construct()
@@ -105,5 +110,23 @@ class Row extends AbstractStyle
         $this->exactHeight = $this->setBoolVal($value, $this->exactHeight);
 
         return $this;
+    }
+
+    /**
+     * Set bgColor
+     */
+    public function setBgColor(string $value): self
+    {
+        $this->bgColor = $value;
+
+        return $this;
+    }
+
+    /**
+     * Get bgColor
+     */
+    public function getBgColor(): ?string
+    {
+        return $this->bgColor;
     }
 }

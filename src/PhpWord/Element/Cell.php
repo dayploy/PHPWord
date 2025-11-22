@@ -18,6 +18,7 @@
 
 namespace PhpOffice\PhpWord\Element;
 
+use PhpOffice\PhpWord\Style;
 use PhpOffice\PhpWord\Style\Cell as CellStyle;
 
 /**
@@ -53,7 +54,11 @@ class Cell extends AbstractContainer
     public function __construct($width = null, $style = null)
     {
         $this->width = $width;
-        $this->style = $this->setNewStyle(new CellStyle(), $style, true);
+        if (is_string($style)) {
+            $this->style = $style;
+        } else {
+            $this->style = $this->setNewStyle(new CellStyle(), $style, true);
+        }
     }
 
     /**

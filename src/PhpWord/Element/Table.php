@@ -23,7 +23,7 @@ use PhpOffice\PhpWord\Style\Table as TableStyle;
 /**
  * Table element.
  */
-class Table extends AbstractElement
+class Table extends AbstractContainer
 {
     /**
      * Table style.
@@ -66,8 +66,7 @@ class Table extends AbstractElement
      */
     public function addRow($height = null, $style = null)
     {
-        $row = new Row($height, $style);
-        $row->setParentContainer($this);
+        $row = $this->addElement('Row', $height, $style);
         $this->rows[] = $row;
 
         return $row;
@@ -86,6 +85,7 @@ class Table extends AbstractElement
         $index = count($this->rows) - 1;
         $row = $this->rows[$index];
         $cell = $row->addCell($width, $style);
+        $cell->setElementId();
 
         return $cell;
     }

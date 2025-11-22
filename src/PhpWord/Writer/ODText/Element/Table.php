@@ -18,7 +18,6 @@
 
 namespace PhpOffice\PhpWord\Writer\ODText\Element;
 
-use PhpOffice\PhpWord\Element\Row as RowElement;
 use PhpOffice\PhpWord\Element\Table as TableElement;
 use PhpOffice\PhpWord\Shared\XMLWriter;
 
@@ -49,11 +48,8 @@ class Table extends AbstractElement
 
             // Write columns
             $this->writeColumns($xmlWriter, $element);
-
-            // Write rows
-            foreach ($rows as $row) {
-                $this->writeRow($xmlWriter, $row);
-            }
+            $containerWriter = new Container($xmlWriter, $element);
+            $containerWriter->write();
             $xmlWriter->endElement(); // table:table
         }
     }
@@ -70,24 +66,5 @@ class Table extends AbstractElement
             $xmlWriter->writeAttribute('table:style-name', $element->getElementId() . '.' . $i);
             $xmlWriter->endElement();
         }
-    }
-
-    /**
-     * Write row.
-     */
-    private function writeRow(XMLWriter $xmlWriter, RowElement $row): void
-    {
-        $xmlWriter->startElement('table:table-row');
-        /** @var RowElement $row Type hint */
-        foreach ($row->getCells() as $cell) {
-            $xmlWriter->startElement('table:table-cell');
-            $xmlWriter->writeAttribute('office:value-type', 'string');
-
-            $containerWriter = new Container($xmlWriter, $cell);
-            $containerWriter->write();
-
-            $xmlWriter->endElement(); // table:table-cell
-        }
-        $xmlWriter->endElement(); // table:table-row
     }
 }

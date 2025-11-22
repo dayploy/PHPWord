@@ -27,6 +27,7 @@ class Table extends AbstractStyle
 {
     /**
      * Write style.
+     * https://docs.oasis-open.org/office/OpenDocument/v1.3/os/part3-schema/OpenDocument-v1.3-os-part3-schema.html#element-style_table-properties
      */
     public function write(): void
     {
@@ -42,6 +43,10 @@ class Table extends AbstractStyle
         $xmlWriter->writeAttribute('style:family', 'table');
         $xmlWriter->startElement('style:table-properties');
         //$xmlWriter->writeAttribute('style:width', 'table');
+
+        $xmlWriter->writeAttribute('style:may-break-between-rows', 'true');
+        $xmlWriter->writeAttribute('table:border-model', 'collapsing');
+
         $xmlWriter->writeAttribute('style:rel-width', 100);
         $xmlWriter->writeAttribute('table:align', 'center');
         $xmlWriter->writeAttributeIf($style->isBidiVisual(), 'style:writing-mode', 'rl-tb');
